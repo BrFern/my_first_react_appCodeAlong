@@ -1,60 +1,68 @@
-import {useEffect, useState} from 'react';
-
+import React from 'react';
+import {useEffect} from 'react';
 import './App.css';
+import SearchIcon from './search.svg';
 
 
-// Remember this is not HTML, this is JS 
-// Can create the variables and then make ternary operators to 
-//You can't do this easily with the other one. 
+//API Key: 468eaee9
 
-//Originally in the other part, just showing some usage:
-// const isNameShowing = true;
-//{isNameShowing ? name: 'someone'}
+const API_URL ='http://www.omdbapi.com?apikey=468eaee9'
 
-//<></> React fragment-essentially a div
-
-//Adjacent JSX elements must be wrapped in an enclosing tag, 
-//Cannot have two heading in one place? Need to use a react fragment
-
-
+const movie1 = 
+    {
+            "Title": "The Lord of the Rings: The Fellowship of the Ring",
+            "Year": "2001",
+            "imdbID": "tt0120737",
+            "Type": "movie",
+            "Poster": "https://m.media-amazon.com/images/M/MV5BN2EyZjM3NzUtNWUzMi00MTgxLWI0NTctMzY4M2VlOTdjZWRiXkEyXkFqcGdeQXVyNDUzOTQ5MjY@._V1_SX300.jpg"
+        
+    }
 const App = () => {
-  //When we start something with use, we call that a hook
-  //Setter function, first one is counter, second uses setcounter
-  const [counter, setCounter] = useState(0);
 
-  //NEVER MODIFY STATES MANUALLY 
-  useEffect(() => {
-    alert("You've changed the counter to" + counter)
-  }, [counter]);
-  
+    const searchMovies = async (title) => {
+        const response = await fetch(`${API_URL}&s=${title}`);
+        const data = await response.json();
 
-  //Trying out a state
-  return (
-    <div className="App"> 
-      <button onClick={() => setCounter((prevCount) => prevCount -1)}>-</button>
-      <h1>{counter}</h1>
-      <button onClick={() => setCounter((prevCount) => prevCount + 1)}>+</button>
-    </div>
-  );
+        console.log(data.Search);
+    }  
+
+    useEffect(() => {
+        searchMovies('Lord of the Rings');
+    }, []);
+
+    return (
+        <div className ="app">
+            <h1>MovieLand</h1>
+            <div className ="search"> <input 
+            placeholder= "Search for movies"
+            value="Superman"
+            onChange={() => {}}
+            />
+            <img 
+            src={SearchIcon}
+            alt="search"
+            onClick = {() => {}}
+            />
+            </div>
+            <div className="container">
+                <div className="movie">
+                    <div>
+                        <p>{movie1.Year}</p>
+                    </div>
+                    <div>
+                        <img src={movie1.Poster !== 'N/A' ? movie1.Poster : 'https//via.placeholder.com/400'} alt={movie1.Title}/>
+                    </div>
+                    <div>
+                        <span>
+                            {movie1.Type}
+                        </span>
+                        <h3>{movie1.Title} </h3>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    );
 }
 
 export default App;
-//SETTING AN EVENT
-//Mouse click, button click,
-//use the counter
-
-//This would go under the const app piece
-  // const Person = (props) => {
-  //   return (
-  //     <>
-  //     <h1>Name: {props.name} </h1>
-  //     <h2> Last Name: {props.lastName}</h2>
-  //     <h2> Age: {props.age}</h2>
-  //     </>
-  //     //This is a person component that renders some JSX
-  //     //It is called below with <Person /> essentially like a class in JS! So cool
-  //     //To have dynamic data, you use props via attributes
-
-  //     //If it is just a string you do not need curly braces, look at John vs. Jane
-  //   )
-  // }
