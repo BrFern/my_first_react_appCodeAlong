@@ -15,21 +15,37 @@ import './App.css';
 
 
 const App = () => {
-  const name = 'Jane';
-  
+ 
+  const Person = (props) => {
+    return (
+      <>
+      <h1>Name: {props.name} </h1>
+      <h2> Last Name: {props.lastName}</h2>
+      <h2> Age: {props.age}</h2>
+      </>
+      //This is a person component that renders some JSX
+      //It is called below with <Person /> essentially like a class in JS! So cool
+      //To have dynamic data, you use props via attributes
+
+      //If it is just a string you do not need curly braces, look at John vs. Jane
+    )
+  }
   return (
     <div className="App"> 
-      <h1> Hello, {2+2}!</h1>
-      {name ? (
-        <>
-          <h1>{name}</h1>
-        </>
-      ): (
-        <>
-        <h1>test</h1>
-        <h2>There is no name</h2>
-        </>
-      )}
+      <Person 
+      name={'John'} 
+      lastName = {'Doe'} 
+      age={25}/>
+
+      <Person 
+      name="Jane" 
+      lastName = "Smith" 
+      age= {32}/>
+      <Person 
+      name="Mary" 
+      lastName = "Thomas" 
+      age= {67}/>
+      
     </div>
   );
 }
