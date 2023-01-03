@@ -1,4 +1,7 @@
+import {useEffect, useState} from 'react';
+
 import './App.css';
+
 
 // Remember this is not HTML, this is JS 
 // Can create the variables and then make ternary operators to 
@@ -15,39 +18,43 @@ import './App.css';
 
 
 const App = () => {
- 
-  const Person = (props) => {
-    return (
-      <>
-      <h1>Name: {props.name} </h1>
-      <h2> Last Name: {props.lastName}</h2>
-      <h2> Age: {props.age}</h2>
-      </>
-      //This is a person component that renders some JSX
-      //It is called below with <Person /> essentially like a class in JS! So cool
-      //To have dynamic data, you use props via attributes
+  //When we start something with use, we call that a hook
+  //Setter function, first one is counter, second uses setcounter
+  const [counter, setCounter] = useState(0);
 
-      //If it is just a string you do not need curly braces, look at John vs. Jane
-    )
-  }
+  //NEVER MODIFY STATES MANUALLY 
+  useEffect(() => {
+    alert("You've changed the counter to" + counter)
+  }, [counter]);
+  
+
+  //Trying out a state
   return (
     <div className="App"> 
-      <Person 
-      name={'John'} 
-      lastName = {'Doe'} 
-      age={25}/>
-
-      <Person 
-      name="Jane" 
-      lastName = "Smith" 
-      age= {32}/>
-      <Person 
-      name="Mary" 
-      lastName = "Thomas" 
-      age= {67}/>
-      
+      <button onClick={() => setCounter((prevCount) => prevCount -1)}>-</button>
+      <h1>{counter}</h1>
+      <button onClick={() => setCounter((prevCount) => prevCount + 1)}>+</button>
     </div>
   );
 }
 
 export default App;
+//SETTING AN EVENT
+//Mouse click, button click,
+//use the counter
+
+//This would go under the const app piece
+  // const Person = (props) => {
+  //   return (
+  //     <>
+  //     <h1>Name: {props.name} </h1>
+  //     <h2> Last Name: {props.lastName}</h2>
+  //     <h2> Age: {props.age}</h2>
+  //     </>
+  //     //This is a person component that renders some JSX
+  //     //It is called below with <Person /> essentially like a class in JS! So cool
+  //     //To have dynamic data, you use props via attributes
+
+  //     //If it is just a string you do not need curly braces, look at John vs. Jane
+  //   )
+  // }
